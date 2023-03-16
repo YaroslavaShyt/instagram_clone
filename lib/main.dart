@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_ys/log_in_instagram.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'search.dart';
+import 'feed.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black54,
         ),
-        home: const LogIn()
+        home: const Feed()//const LogIn()
         );
   }
 }
