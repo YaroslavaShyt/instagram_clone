@@ -26,6 +26,12 @@ class _ReelsState extends State<Reels> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    videoController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

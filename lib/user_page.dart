@@ -90,7 +90,7 @@ class UserPage extends StatelessWidget {
           Row(children: [
             const Stories(
                 image: NetworkImage(
-                    'https://firebasestorage.googleapis.com/v0/b/flutterinstagramys.appspot.com/o/20210722_133710.jpg?alt=media&token=b7ffb2ef-5614-4597-ac33-e0bc9898adb9'),
+                    'https://firebasestorage.googleapis.com/v0/b/instagram-4820d.appspot.com/o/IMG_20200121_150522_877.jpg?alt=media&token=4a305903-a788-4713-ad52-98807d794f18'),
                 text: 'life'),
             Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
