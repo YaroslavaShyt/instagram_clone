@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostHead extends StatelessWidget {
   final NetworkImage image;
@@ -60,13 +62,17 @@ class PostContent extends StatelessWidget {
   final String nickName;
   final String likes;
   final String postText;
+  final int tag;
+  final String id;
   const PostContent(
       {Key? key,
-        required this.image,
-        required this.nickName,
-        required this.likes,
-        required this.postText,
-        required this.accountImage})
+      required this.id,
+      required this.tag,
+      required this.image,
+      required this.nickName,
+      required this.likes,
+      required this.postText,
+      required this.accountImage})
       : super(key: key);
 
   @override
@@ -75,7 +81,66 @@ class PostContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Image(image: image),
+        Hero(tag: tag, child: Image(image: image)),
+        PostTail(
+            id: id,
+            likes: likes,
+            nickName: nickName,
+            postText: postText,
+            accountImage: accountImage)
+      ],
+    );
+  }
+}
+
+class PostTail extends StatefulWidget {
+  final String id;
+  String likes;
+  final String nickName;
+  final String postText;
+  final NetworkImage accountImage;
+  PostTail(
+      {Key? key,
+      required this.id,
+      required this.likes,
+      required this.nickName,
+      required this.postText,
+      required this.accountImage})
+      : super(key: key);
+
+  @override
+  State<PostTail> createState() => _PostTailState();
+}
+
+class _PostTailState extends State<PostTail> {
+  Color likeColor = Colors.white;
+
+  void setLike() {
+    var likes = int.parse(widget.likes);
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('feed').doc(widget.id);
+    docRef.get().then((DocumentSnapshot documentSnapshot) {
+      var fieldValue = documentSnapshot.get('isLiked');
+      if (fieldValue) {
+        likes -= 1;
+        likeColor = Colors.white;
+      } else {
+        likes += 1;
+        likeColor = Colors.pink;
+      }
+      setState(() {
+        widget.likes = likes.toString();
+      });
+      docRef.update({'likes': widget.likes, 'isLiked': !fieldValue});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
             child: Row(
@@ -85,9 +150,15 @@ class PostContent extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite_border, size: 20),
+                      onPressed: () {
+                        setLike();
+                      },
+                      icon: const Icon(
+                        Icons.favorite_border,
+                        size: 20,
+                      ),
                       splashRadius: 0.1,
+                      color: likeColor,
                     ),
                   ),
                   Padding(
@@ -114,23 +185,23 @@ class PostContent extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: Text(
-              '$likes вподобань',
+              '${widget.likes} вподобань',
               style: const TextStyle(fontSize: 15),
             )),
         Container(
             padding: const EdgeInsets.fromLTRB(15, 8, 0, 0),
             child: RichText(
                 text: TextSpan(
-                    text: '$nickName ',
+                    text: widget.nickName,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                     children: [
-                      TextSpan(
-                        text: postText,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      )
-                    ]))),
+                  TextSpan(
+                    text: widget.postText,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.normal),
+                  )
+                ]))),
         Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
             child: Row(children: [
@@ -138,7 +209,7 @@ class PostContent extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                   child: CircleAvatar(
                     radius: 12,
-                    backgroundImage: accountImage,
+                    backgroundImage: widget.accountImage,
                   )),
               const Text(
                 'Додати коментар...',
