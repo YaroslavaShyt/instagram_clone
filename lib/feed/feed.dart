@@ -4,7 +4,7 @@ import 'feed_scroll_page.dart';
 import '../not-used/search.dart';
 import '../not-used/add_photo.dart';
 import '../not-used/reels.dart';
-import '../not-used/user_page.dart';
+import '../main_page/user_page.dart';
 
 
 class Feed extends StatefulWidget {
