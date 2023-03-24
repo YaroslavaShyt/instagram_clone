@@ -3,12 +3,14 @@ import 'post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostGrid extends StatelessWidget {
-  const PostGrid({Key? key}) : super(key: key);
+  final String nickName;
+  final String accountPhoto;
+  const PostGrid({Key? key, required this.nickName, required this.accountPhoto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+        stream: FirebaseFirestore.instance.collection('user_posts').snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -30,13 +32,14 @@ class PostGrid extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => PostPage(
+                          id: snap.id,
                           tag: index,
-                          postPhoto: (snap.data()! as dynamic)['post'],
-                          nickname: (snap.data()! as dynamic)['nickname'],
-                          location: '',
-                          photo: (snap.data()! as dynamic)['accountPhoto'],
+                          postPhoto: (snap.data()! as dynamic)['photo'],
+                          nickname: nickName,
+                          location: (snap.data()! as dynamic)['location'],
+                          photo: accountPhoto,
                           likes: (snap.data()! as dynamic)['likes'],
-                          text: '',
+                          text: (snap.data()! as dynamic)['content'],
                         ),
                       ),
                     );
@@ -45,7 +48,7 @@ class PostGrid extends StatelessWidget {
                     tag: index,
                     child: Image(
                       image:
-                      NetworkImage((snap.data()! as dynamic)['post']),
+                      NetworkImage((snap.data()! as dynamic)['photo']),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -56,6 +59,7 @@ class PostGrid extends StatelessWidget {
 }
 
 class PostPage extends StatelessWidget {
+  final String id;
   final int tag;
   final String photo;
   final String nickname;
@@ -65,6 +69,7 @@ class PostPage extends StatelessWidget {
   final String text;
   const PostPage(
       {Key? key,
+        required this.id,
         required this.tag,
         required this.photo,
         required this.nickname,
@@ -87,21 +92,21 @@ class PostPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           title: const Text('Дописи'),
         ),
-        body:  Hero(
-            tag: tag,
-            child: Post(
-              head: PostHead(
-                image: NetworkImage(photo),
-                nickName: nickname,
-                location: location,
-              ),
-              content: PostContent(
-                accountImage: NetworkImage(photo),
-                image: NetworkImage(postPhoto),
-                nickName: nickname,
-                likes: likes.toString(),
-                postText: text,
-              ),
+        body:
+        Post(
+            head: PostHead(
+              image: NetworkImage(photo),
+              nickName: nickname,
+              location: location,
+            ),
+            content: PostContent(
+              id: id,
+              tag: tag,
+              accountImage: NetworkImage(photo),
+              image: NetworkImage(postPhoto),
+              nickName: nickname,
+              likes: likes.toString(),
+              postText: text,
             )));
   }
 }

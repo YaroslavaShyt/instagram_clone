@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'form_widget.dart';
 import 'authentication.dart';
-import 'feed.dart';
-import 'additional_widgets.dart';
+import '../feed/feed.dart';
+import '../not-used/additional_widgets.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);

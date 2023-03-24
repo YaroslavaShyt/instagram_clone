@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'contacts.dart';
+import 'package:instagram_clone_ys/main_page/contacts.dart';
 import 'package:instagram_clone_ys/main_page/settings_menu.dart';
 import '../post/post_grid_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -55,10 +55,10 @@ class UserPageBody extends StatelessWidget {
   final Function incrementSubscriptions;
   const UserPageBody(
       {Key? key,
-      required this.snapshot,
-      required this.subscriptions,
-      required this.incrementSubscriptions,
-      required this.isFollowed})
+        required this.snapshot,
+        required this.subscriptions,
+        required this.incrementSubscriptions,
+        required this.isFollowed})
       : super(key: key);
 
   @override
@@ -108,10 +108,10 @@ class Row1 extends StatelessWidget {
   final String subscriptions;
   const Row1(
       {Key? key,
-      required this.accountPhoto,
-      required this.posts,
-      required this.subscribers,
-      required this.subscriptions})
+        required this.accountPhoto,
+        required this.posts,
+        required this.subscribers,
+        required this.subscriptions})
       : super(key: key);
 
   @override
@@ -119,41 +119,41 @@ class Row1 extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.fromLTRB(15, 0, 10, 15),
         child:
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                radius: 45,
+                backgroundImage: NetworkImage(accountPhoto),
+              ),
+              Column(
                 children: [
-                  CircleAvatar(
-                    radius: 45,
-                    backgroundImage: NetworkImage(accountPhoto),
+                  Text(
+                    posts,
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        posts,
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      const Text('Дописи'),
-                  ],
+                  const Text('Дописи'),
+                ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    subscribers,
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        subscribers,
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      const Text('Читачі'),
-                    ],
+                  const Text('Читачі'),
+                ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    subscriptions,
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        subscriptions,
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      const Text('Відстежую...'),
-            ],
-          )
-        ]));
+                  const Text('Відстежую...'),
+                ],
+              )
+            ]));
   }
 }
 
