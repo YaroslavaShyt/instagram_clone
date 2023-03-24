@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'feed_scroll_page.dart';
-import 'search.dart';
-import 'add_photo.dart';
-import 'reels.dart';
-import 'user_page.dart';
+import '../not used/search.dart';
+import '../add_photo/add_photo.dart';
+import '../not used/reels.dart';
+import '../main_page/user_page.dart';
 
 
 class Feed extends StatefulWidget {

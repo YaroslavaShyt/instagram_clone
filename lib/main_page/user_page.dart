@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_ys/settings_menu.dart';
-import 'post_grid_page.dart';
-import 'stories.dart';
+import 'package:instagram_clone_ys/main_page/settings_menu.dart';
+import '../post/post_grid_page.dart';
+import '../not used/stories.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);

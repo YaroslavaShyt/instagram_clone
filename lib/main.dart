@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_ys/log_in_instagram.dart';
-import 'search.dart';
-import 'feed.dart';
+import 'package:instagram_clone_ys/authorization/log_in_instagram.dart';
+import 'not used/search.dart';
+import 'feed/feed.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
