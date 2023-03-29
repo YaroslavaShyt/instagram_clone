@@ -1,13 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:instagram_clone_ys/authenthefication/log_in_instagram.dart';
-import 'not-used/search.dart';
+import 'subscribe_model.dart';
 import 'feed/feed.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => SubscribeUnsubscribeModel(),
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -3,6 +3,8 @@ import 'package:instagram_clone_ys/main_page/contacts.dart';
 import 'package:instagram_clone_ys/main_page/settings_menu.dart';
 import '../post/post_grid_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:instagram_clone_ys/subscribe_model.dart';
+import 'package:provider/provider.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -85,8 +87,6 @@ class UserPageBody extends StatelessWidget {
           Row(
               children: [
                 ContactCard(
-                    isFollowed: isFollowed,
-                    incrementSubscriptions: incrementSubscriptions,
                     accountPhoto: 'https://firebasestorage.googleapis.com/v0/b/flutterinstagramys.appspot.com/o/20210722_133655.jpg?alt=media&token=da9d86f2-ecae-40c3-af50-810fa6a2c749',
                     nickname: 'Maria Photographer',
                     nameSurname: 'Марія Фотограф')
@@ -116,46 +116,49 @@ class Row1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(15, 0, 10, 15),
-        child:
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CircleAvatar(
-                radius: 45,
-                backgroundImage: NetworkImage(accountPhoto),
-              ),
-              Column(
-                children: [
-                  Text(
-                    posts,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  const Text('Дописи'),
-                ],
-              ),
-              Column(
-                children: [
-                  Text(
-                    subscribers,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  const Text('Читачі'),
-                ],
-              ),
-              Column(
-                children: [
-                  Text(
-                    subscriptions,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  const Text('Відстежую...'),
-                ],
-              )
-            ]));
+    return Consumer<SubscribeUnsubscribeModel>(
+        builder: (builder, subscriptions, child){
+      return Padding(
+          padding: const EdgeInsets.fromLTRB(15, 0, 10, 15),
+          child:
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircleAvatar(
+                  radius: 45,
+                  backgroundImage: NetworkImage(accountPhoto),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      posts,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    const Text('Дописи'),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      subscribers,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    const Text('Читачі'),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      subscriptions.subscriptions.toString(),
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    const Text('Відстежую...'),
+                  ],
+                )
+              ]));});
+    }
   }
-}
+
 
 class Row2 extends StatelessWidget {
   final String nameSurname;
