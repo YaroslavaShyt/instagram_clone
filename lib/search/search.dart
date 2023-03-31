@@ -39,9 +39,9 @@ class SearchPage extends StatelessWidget {
             ),]),)),
               const SizedBox(height: 10,),
               const ContactCardRow(
-                accountPhoto: 'https://firebasestorage.googleapis.com/v0/b/flutterinstagramys.appspot.com/o/20220427_102231.jpg?alt=media&token=0dffda32-a682-4939-84d5-f5e2d561cdb3',
-                nickname: 'katekate',
-                nameSurname: 'Katerina Kugak')
+                accountPhoto:'https://firebasestorage.googleapis.com/v0/b/flutterinstagramys.appspot.com/o/20210722_133655.jpg?alt=media&token=da9d86f2-ecae-40c3-af50-810fa6a2c749',
+                nickname: 'marymary',
+                nameSurname: 'Maria Photographer')
           ],)
         ),
     );

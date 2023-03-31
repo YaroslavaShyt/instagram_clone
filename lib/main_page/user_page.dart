@@ -14,15 +14,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  int subscriptions = 100;
-  bool isFollowed = false;
-
-  void incrementSubscriptions() {
-    setState(() {
-      isFollowed ? subscriptions -= 1 : subscriptions += 1;
-      isFollowed = !isFollowed;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,25 +33,14 @@ class _UserPageState extends State<UserPage> {
               endDrawer: const SettingsMenu(),
               body: UserPageBody(
                 snapshot: snapshot,
-                subscriptions: subscriptions,
-                incrementSubscriptions: incrementSubscriptions,
-                isFollowed: isFollowed,
               ));
         });
   }
 }
 
 class UserPageBody extends StatelessWidget {
-  final int subscriptions;
-  final bool isFollowed;
   final snapshot;
-  final Function incrementSubscriptions;
-  const UserPageBody(
-      {Key? key,
-        required this.snapshot,
-        required this.subscriptions,
-        required this.incrementSubscriptions,
-        required this.isFollowed})
+  const UserPageBody({Key? key, required this.snapshot,})
       : super(key: key);
 
   @override
@@ -73,7 +53,7 @@ class UserPageBody extends StatelessWidget {
             accountPhoto: snapshot.data!.docs[index].data()['accountPhoto'],
             posts: snapshot.data!.docs[index].data()['posts'].toString(),
             subscribers: snapshot.data!.docs[index].data()['subscribers'].toString(),
-            subscriptions: subscriptions.toString(),
+            subscriptions: Provider.of<SubscribeUnsubscribeModel>(context, listen: true).mySubscriptions.toString(),
           ),
           Row2(
             nameSurname: snapshot.data!.docs[index].data()['name'] + ' ' + snapshot.data!.docs[index].data()['surname'],
@@ -85,7 +65,7 @@ class UserPageBody extends StatelessWidget {
               )),
           const Row3(),
           Row(
-              children: [
+              children: const [
                 ContactCard(
                     accountPhoto: 'https://firebasestorage.googleapis.com/v0/b/flutterinstagramys.appspot.com/o/20210722_133655.jpg?alt=media&token=da9d86f2-ecae-40c3-af50-810fa6a2c749',
                     nickname: 'Maria Photographer',
@@ -149,7 +129,7 @@ class Row1 extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      subscriptions.subscriptions.toString(),
+                      subscriptions.mySubscriptions.toString(),
                       style: const TextStyle(fontSize: 20),
                     ),
                     const Text('Відстежую...'),

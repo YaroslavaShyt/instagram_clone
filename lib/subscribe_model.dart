@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 class SubscribeUnsubscribeModel extends ChangeNotifier{
-  int _subscriptions = 200;
+  int _contactSubscribers = 200;
+  int _mySubscriptions = 100;
   bool _isFollowed = false;
 
-  get subscriptions => _subscriptions;
+  get contactSubscribers => _contactSubscribers;
+
+  get mySubscriptions => _mySubscriptions;
 
   get isFollowed => _isFollowed;
 
   void subscribe(){
-    _subscriptions ++;
+    _mySubscriptions ++;
+    _contactSubscribers ++;
     _isFollowed = true;
     notifyListeners();
   }
 
   void unsubscribe(){
-    _subscriptions --;
+    _mySubscriptions --;
+    _contactSubscribers --;
     _isFollowed = false;
     notifyListeners();
   }

@@ -9,9 +9,10 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       child: Provider.of<SubscribeUnsubscribeModel>(context, listen: true).isFollowed ?
-      const Text('Не стежити') : const Text('Стежити'),
+        const Text('Не стежити') : const Text('Стежити'),
       onPressed: (){
-        Provider.of<SubscribeUnsubscribeModel>(context, listen: false).isFollowed ? Provider.of<SubscribeUnsubscribeModel>(context, listen: false).unsubscribe():
+        Provider.of<SubscribeUnsubscribeModel>(context, listen: false).isFollowed ?
+          Provider.of<SubscribeUnsubscribeModel>(context, listen: false).unsubscribe():
         Provider.of<SubscribeUnsubscribeModel>(context, listen: false).subscribe();
       },
     );
@@ -63,7 +64,7 @@ class ContactCardRow extends ContactCard {
         radius: 30,
       ),
       title: Text(nickname),
-      subtitle: Text('$nameSurname: ' + Provider.of<SubscribeUnsubscribeModel>(context, listen: true).subscriptions.toString()),
+      subtitle: Text('$nameSurname: ${Provider.of<SubscribeUnsubscribeModel>(context, listen: true).contactSubscribers}'),
       trailing: const Button(),
     );
   }
