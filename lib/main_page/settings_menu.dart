@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_ys/theme_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:instagram_clone_ys/theme_provider.dart';
 
 class SettingsMenu extends StatefulWidget {
   const SettingsMenu({Key? key}) : super(key: key);
@@ -90,10 +93,12 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ))
           ]),
           Row(children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.format_paint)),
+            IconButton(onPressed: () {
+              Provider.of<ThemeProvider>(context, listen: false).swapTheme();
+            }, icon: const Icon(Icons.format_paint)),
             const Expanded(
                 child: Text(
-                  'Тема'
+                    'Тема'
                 ))
           ]),
         ],

@@ -1,16 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:instagram_clone_ys/authenthefication/log_in_instagram.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'theme_provider.dart';
 import 'subscribe_model.dart';
 import 'feed/feed.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(ChangeNotifierProvider(
-      create: (context) => SubscribeUnsubscribeModel(),
-      child: const MyApp()));
+  SharedPreferences.getInstance().then((prefs){
+    var isDarkMode = prefs.getBool('isDarkTheme') ?? false;
+    runApp( ChangeNotifierProvider(
+      create: (context) => ThemeProvider(isDarkMode: isDarkMode),
+      child: const MyApp())
+    );}
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,13 +23,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Instagram clone YS',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Colors.black54,
-        ),
-        home: const Feed()//const LogIn()
-        );
+    return Consumer<ThemeProvider>(
+        builder: (context, ThemeProvider themeProvider, child) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Instagram clone YS',
+              theme: themeProvider.getTheme,
+              home: const Feed() //const LogIn()
+          );
+        });
   }
 }

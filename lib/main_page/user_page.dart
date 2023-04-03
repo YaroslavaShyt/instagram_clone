@@ -53,7 +53,7 @@ class UserPageBody extends StatelessWidget {
             accountPhoto: snapshot.data!.docs[index].data()['accountPhoto'],
             posts: snapshot.data!.docs[index].data()['posts'].toString(),
             subscribers: snapshot.data!.docs[index].data()['subscribers'].toString(),
-            subscriptions: Provider.of<SubscribeUnsubscribeModel>(context, listen: true).mySubscriptions.toString(),
+            subscriptions: snapshot.data!.docs[index].data()['subscriptions'].toString(),
           ),
           Row2(
             nameSurname: snapshot.data!.docs[index].data()['name'] + ' ' + snapshot.data!.docs[index].data()['surname'],
@@ -96,8 +96,6 @@ class Row1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SubscribeUnsubscribeModel>(
-        builder: (builder, subscriptions, child){
       return Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 10, 15),
           child:
@@ -129,13 +127,13 @@ class Row1 extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      subscriptions.mySubscriptions.toString(),
+                      subscriptions,
                       style: const TextStyle(fontSize: 20),
                     ),
                     const Text('Відстежую...'),
                   ],
                 )
-              ]));});
+              ]));
     }
   }
 
