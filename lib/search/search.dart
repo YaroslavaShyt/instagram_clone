@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_ys/post/post.dart';
 import '../main_page/contacts.dart';
+import 'package:instagram_clone_ys/advertisement/advertising_provider.dart';
 
 class SearchPage extends StatelessWidget {
   final controller = TextEditingController();
-
   SearchPage({Key? key}) : super(key: key);
 
   @override
@@ -37,11 +38,6 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
             ),]),)),
-              const SizedBox(height: 10,),
-              const ContactCardRow(
-                accountPhoto:'https://firebasestorage.googleapis.com/v0/b/flutterinstagramys.appspot.com/o/20210722_133655.jpg?alt=media&token=da9d86f2-ecae-40c3-af50-810fa6a2c749',
-                nickname: 'marymary',
-                nameSurname: 'Maria Photographer')
           ],)
         ),
     );

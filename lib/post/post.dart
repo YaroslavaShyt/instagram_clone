@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostHead extends StatelessWidget {
-  final NetworkImage image;
+  final String image;
   final String nickName;
   final String location;
   const PostHead({
@@ -27,7 +25,7 @@ class PostHead extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: CircleAvatar(
                       radius: 15,
-                      backgroundImage: image,
+                      backgroundImage: NetworkImage(image),
                     )),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -57,11 +55,7 @@ class PostHead extends StatelessWidget {
 }
 
 class PostContent extends StatelessWidget {
-  final NetworkImage image;
-  final NetworkImage accountImage;
-  final String nickName;
-  final String likes;
-  final String postText;
+  final String image;
   final int tag;
   final String id;
   const PostContent(
@@ -69,10 +63,7 @@ class PostContent extends StatelessWidget {
       required this.id,
       required this.tag,
       required this.image,
-      required this.nickName,
-      required this.likes,
-      required this.postText,
-      required this.accountImage})
+     })
       : super(key: key);
 
   @override
@@ -81,13 +72,7 @@ class PostContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Hero(tag: tag, child: Image(image: image)),
-        PostTail(
-            id: id,
-            likes: likes,
-            nickName: nickName,
-            postText: postText,
-            accountImage: accountImage)
+        Hero(tag: tag, child: Image(image: NetworkImage(image))),
       ],
     );
   }
@@ -98,7 +83,7 @@ class PostTail extends StatefulWidget {
   String likes;
   final String nickName;
   final String postText;
-  final NetworkImage accountImage;
+  final String accountImage;
   PostTail(
       {Key? key,
       required this.id,
@@ -113,27 +98,6 @@ class PostTail extends StatefulWidget {
 }
 
 class _PostTailState extends State<PostTail> {
-  Color likeColor = Colors.white;
-
-  void setLike() {
-    var likes = int.parse(widget.likes);
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection('feed').doc(widget.id);
-    docRef.get().then((DocumentSnapshot documentSnapshot) {
-      var fieldValue = documentSnapshot.get('isLiked');
-      if (fieldValue) {
-        likes -= 1;
-        likeColor = Colors.white;
-      } else {
-        likes += 1;
-        likeColor = Colors.pink;
-      }
-      setState(() {
-        widget.likes = likes.toString();
-      });
-      docRef.update({'likes': widget.likes, 'isLiked': !fieldValue});
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,15 +114,12 @@ class _PostTailState extends State<PostTail> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: IconButton(
-                      onPressed: () {
-                        setLike();
-                      },
+                      onPressed: () {},
                       icon: const Icon(
-                        Icons.favorite_border,
+                        Icons.favorite_outline_outlined,
                         size: 20,
                       ),
                       splashRadius: 0.1,
-                      color: likeColor,
                     ),
                   ),
                   Padding(
@@ -193,13 +154,13 @@ class _PostTailState extends State<PostTail> {
             child: RichText(
                 text: TextSpan(
                     text: widget.nickName,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold,  color: Theme.of(context).textTheme.bodyLarge?.color),
                     children: [
                   TextSpan(
                     text: widget.postText,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.normal),
+                    style:  TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.normal, color: Theme.of(context).textTheme.bodyLarge?.color,),
                   )
                 ]))),
         Padding(
@@ -209,11 +170,11 @@ class _PostTailState extends State<PostTail> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                   child: CircleAvatar(
                     radius: 12,
-                    backgroundImage: widget.accountImage,
+                    backgroundImage: NetworkImage(widget.accountImage),
                   )),
-              const Text(
+               const Text(
                 'Додати коментар...',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                style: TextStyle(fontSize: 12),
               )
             ]))
       ],
@@ -224,11 +185,12 @@ class _PostTailState extends State<PostTail> {
 class Post extends StatelessWidget {
   final PostContent content;
   final PostHead head;
-  const Post({Key? key, required this.content, required this.head})
+  final PostTail tail;
+  const Post({Key? key, required this.content, required this.head, required this.tail})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[head, content]);
+    return Column(children: <Widget>[head, content, tail]);
   }
 }

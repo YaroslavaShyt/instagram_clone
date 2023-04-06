@@ -5,17 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'theme_provider.dart';
 import 'subscribe_model.dart';
 import 'feed/feed.dart';
+import 'advertisement/advertising_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SharedPreferences.getInstance().then((prefs){
+  SharedPreferences.getInstance().then((prefs) {
     var isDarkMode = prefs.getBool('isDarkTheme') ?? false;
-    runApp( ChangeNotifierProvider(
-      create: (context) => ThemeProvider(isDarkMode: isDarkMode),
-      child: const MyApp())
-    );}
-  );
+    runApp(ChangeNotifierProvider(
+        create: (context) => ThemeProvider(isDarkMode: isDarkMode),
+        builder: (context, child) {
+        return   const MyApp();}));
+  });
+
 }
 
 class MyApp extends StatelessWidget {

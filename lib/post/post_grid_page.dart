@@ -95,18 +95,21 @@ class PostPage extends StatelessWidget {
         body:
         Post(
             head: PostHead(
-              image: NetworkImage(photo),
+              image: photo,
               nickName: nickname,
               location: location,
             ),
             content: PostContent(
               id: id,
               tag: tag,
-              accountImage: NetworkImage(photo),
-              image: NetworkImage(postPhoto),
-              nickName: nickname,
-              likes: likes.toString(),
-              postText: text,
-            )));
+              image: postPhoto,
+            ),
+          tail: PostTail(
+            id: id,
+            nickName: nickname,
+            likes: likes.toString(),
+            postText: text,
+            accountImage: photo,
+          ),));
   }
 }
