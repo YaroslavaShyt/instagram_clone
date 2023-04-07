@@ -50,7 +50,7 @@ class _FeedState extends State<Feed> with SingleTickerProviderStateMixin {
         ),
         bottomNavigationBar: CupertinoTabBar(
           border:
-              const Border(top: BorderSide(width: 0.1, color: Colors.white)),
+          const Border(top: BorderSide(width: 0.1, color: Colors.white)),
           backgroundColor: Colors.black,
           items: const [
             BottomNavigationBarItem(

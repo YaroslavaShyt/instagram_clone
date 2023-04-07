@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_ys/theme_provider.dart';
+import 'package:instagram_clone_ys/settings/theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:instagram_clone_ys/theme_provider.dart';
+import 'package:instagram_clone_ys/settings/theme_provider.dart';
 
 class SettingsMenu extends StatefulWidget {
   const SettingsMenu({Key? key}) : super(key: key);

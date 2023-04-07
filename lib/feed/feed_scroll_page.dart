@@ -29,7 +29,7 @@ class _FeedScrollPageState extends State<FeedScrollPage> {
   @override
   Widget build(BuildContext context) {
     if (documents.isEmpty ||
-        Provider.of<AdvertisingProvider?>(context)?.text == null) {
+        Provider.of<AdvertisingProvider?>(context)?.title == null) {
       return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(

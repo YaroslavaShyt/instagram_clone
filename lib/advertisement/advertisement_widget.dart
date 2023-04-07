@@ -38,7 +38,7 @@ class DetailsButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             var url = Uri.parse(
-                Provider.of<AdvertisingProvider>(context, listen: false).siteAddress);
+                Provider.of<AdvertisingProvider>(context, listen: false).siteAddress1);
             if (await canLaunchUrl(url)) {
               await launchUrl(url);
             } else {

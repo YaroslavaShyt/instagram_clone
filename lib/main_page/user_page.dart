@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_ys/main_page/contacts.dart';
-import 'package:instagram_clone_ys/main_page/settings_menu.dart';
+import 'package:instagram_clone_ys/settings/settings_menu.dart';
 import '../post/post_grid_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagram_clone_ys/subscribe_model.dart';
+import 'package:instagram_clone_ys/not-used/subscribe_model.dart';
 import 'package:provider/provider.dart';
 
 class UserPage extends StatefulWidget {

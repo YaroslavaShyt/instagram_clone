@@ -1,10 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier{
   late ThemeData _selectedTheme;
-  late Typography defaultTypography;
   late SharedPreferences prefs;
 
   ThemeData light = ThemeData.light().copyWith(

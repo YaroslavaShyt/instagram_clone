@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:instagram_clone_ys/subscribe_model.dart';
+import 'package:instagram_clone_ys/not-used/subscribe_model.dart';
 
 class Button extends StatelessWidget {
   const Button({Key? key}) : super(key: key);
