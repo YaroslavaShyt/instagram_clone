@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_ys/feed/feed_scroll_page.dart';
 import 'form_widget.dart';
 import 'authentication.dart';
 import '../feed/feed.dart';
@@ -53,12 +54,16 @@ class _LogInState extends State<LogIn> {
                   if (result.isNotEmpty){
                     snackBarDisplay(result, context);
                   }
-                  else{ Navigator.of
-                  (context).pushReplacement(MaterialPageRoute(builder: (context) => const Feed()));}
+                  else{
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => const FeedScrollPage())
+                    );}
                 },
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                ),
+                )
+                ,
                 child: const Text(
                   'Увійти',
                   style: TextStyle(

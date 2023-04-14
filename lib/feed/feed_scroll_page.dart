@@ -112,6 +112,7 @@ class _FeedScrollPageState extends State<FeedScrollPage> {
                     postText: (documents[index].data()
                         as Map<String, dynamic>)['content'],
                   ));
-            }));
+            }),
+   );
   }
 }

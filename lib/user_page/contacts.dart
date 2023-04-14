@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:instagram_clone_ys/not-used/subscribe_model.dart';
+import 'user_page.dart';
 
 class Button extends StatelessWidget {
   const Button({Key? key}) : super(key: key);
@@ -54,13 +53,19 @@ class ContactCardRow extends ContactCard {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return GestureDetector(
+        onTap: () {
+     //   Navigator.push(
+     //     context, MaterialPageRoute(builder: (context) => const UserPage(collection: 'person',))
+     //   );
+    },
+    child: ListTile(
       leading:  CircleAvatar(
         backgroundImage: NetworkImage(accountPhoto),
         radius: 30,
       ),
       title: Text(nickname),
       trailing: const Button(),
-    );
+    ));
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
+import '../feed/feed.dart';
+
 class Reels extends StatefulWidget {
   const Reels({Key? key}) : super(key: key);
 
@@ -108,6 +110,7 @@ class _ReelsState extends State<Reels> {
                       child: Text('Raindbow after the rain'),
                     ),
                   ]))
-        ]));
+        ]),
+        );
   }
 }

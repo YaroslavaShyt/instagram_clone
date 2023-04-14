@@ -1,10 +1,12 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_ys/settings/settings_item.dart';
 import 'package:instagram_clone_ys/settings/theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:instagram_clone_ys/settings/theme_provider.dart';
 
 class SettingsMenu extends StatefulWidget {
-  const SettingsMenu({Key? key}) : super(key: key);
+  int max_time = 10;
+  SettingsMenu({Key? key}) : super(key: key);
 
   @override
   State<SettingsMenu> createState() => _SettingsMenuState();
@@ -13,19 +15,26 @@ class SettingsMenu extends StatefulWidget {
 class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
+    return Scaffold(
+        body: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
+           DrawerHeader(
+            decoration: const BoxDecoration(
               color: Colors.transparent,
             ),
-            child:Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Text(
+            child:Padding(padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: (){
+                            Beamer.of(context).popRoute();
+                          },
+                          icon: const Icon(Icons.arrow_back)),
+                      const Text(
               'Налаштування',
               style: TextStyle(fontSize: 25),
-            )),
+            )])),
           ),
           Row(children: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.person_add)),
@@ -51,11 +60,22 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ))
           ]),
           Row(children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.people)),
-            const Expanded(
-                child: Text(
+            IconButton(onPressed: () async{
+              var a = await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                      SettingsItem(title: 'Нагляд',)));
+              setState(() {
+                widget.max_time = a;
+              });
+            }, icon: const Icon(Icons.people)),
+             Expanded(
+                child: Row(
+                children: [
+                  const Text(
                   'Нагляд'
-                ))
+                ),
+                const SizedBox(width: 5),
+                Text(widget.max_time.toString())]))
           ]),
           Row(children: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.security)),

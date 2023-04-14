@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import '../feed/feed.dart';
+
 
 class AddPhoto extends StatefulWidget {
   const AddPhoto({super.key});
@@ -12,14 +14,17 @@ class AddPhoto extends StatefulWidget {
 
 class _AddPhoto extends State<AddPhoto> {
   File? galleryFile;
+  late int photosAdded = 0;
   final picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    //display image selected from gallery
 
     return Scaffold(
       appBar: AppBar(
-        leading: BackButtonIcon(),
+        leading: IconButton(
+        icon: BackButtonIcon(),
+        onPressed: () {},
+        ),
         title: const Text('Новий допис'),
         backgroundColor: Colors.transparent,
         actions: const [],
@@ -35,9 +40,12 @@ class _AddPhoto extends State<AddPhoto> {
                       backgroundColor: MaterialStateProperty.all(Colors.pinkAccent)),
                   child: const Text('Обрати зображення з галереї чи зробити фото'),
                   onPressed: () {
-                    _showPicker(context: context);
+                    setState(() {
+                      photosAdded ++;
+                    });
                   },
                 ),
+                Text('Ви додавали ${photosAdded} фото.')
               ],
             ),
           );
@@ -45,7 +53,7 @@ class _AddPhoto extends State<AddPhoto> {
       ),
     );
   }
-
+/*
   void _showPicker({
     required BuildContext context,
   }) {
@@ -90,6 +98,6 @@ class _AddPhoto extends State<AddPhoto> {
         }
       },
     );
-  }
+  }*/
 }
 
